@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.mn.mn</groupId>
+        <artifactId>microservice-base</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>microservice-base-dao</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>microservice-base-dao</name>
+    <description>MN Micro Service Base DAO Project</description>
+
+    <properties>
+        <!-- mybatis-generator自动生成代码插件所需配置参数 -->
+        <generator.targetPackageModel>cn.mn.mn.dao.po</generator.targetPackageModel>
+        <generator.targetPackageMapper>cn.mn.mn.dao.mapper</generator.targetPackageMapper>
+        <generator.targetPackageMap>mappers</generator.targetPackageMap>
+        <jdbc.driverClass>com.mysql.cj.jdbc.Driver</jdbc.driverClass>
+        <jdbc.url>
+            jdbc:mysql://127.0.0.1:3306/ms_base_db?serverTimezone=Asia/Shanghai&amp;nullCatalogMeansCurrent=true
+        </jdbc.url>
+        <jdbc.userId>root</jdbc.userId>
+        <jdbc.password>mn@123456!</jdbc.password>
+    </properties>
+
+    <dependencies>
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- mybatis-generator自动生成代码插件 -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>${mybatis-generator.version}</version>
+                <configuration>
+                    <configurationFile>
+                        ${basedir}/src/main/resources/generatorConfig.xml
+                    </configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+                <dependencies>
+                    <!-- 依赖数据库驱动 -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

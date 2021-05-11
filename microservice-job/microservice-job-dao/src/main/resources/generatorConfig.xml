@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 一个数据库一个context -->
+    <!-- flat:该模型为每一张表只生成一个实体类。这个实体类包含表中的所有字段。 -->
+    <context id="MySQL" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 通用mapper配置 -->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="forceAnnotation" value="true"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+        </plugin>
+        <!-- 注释 -->
+        <commentGenerator>
+            <!-- 是否生成注释代时间戳 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.url}" userId="${jdbc.userId}"
+                        password="${jdbc.password}"/>
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成model模型，设置对应的包名(targetPackage)和存放路径(targetProject)。targetProject可以指定具体的路径,
+        如./src/main/java,也可以使用MAVEN来自动生成,这样生成的代码会在target/generatord-source目录下 -->
+        <javaModelGenerator targetPackage="${generator.targetPackageModel}" targetProject="src/main/java">
+            <!-- enableSubPackages:如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false。 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- trimStrings:是否对数据库查询结果进行trim操作，如果设置为true就会生成类似这样public void setUsername(String username)
+             {this.username = username == null ? null : username.trim();}的setter方法。默认值为false。 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 对应的mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="${generator.targetPackageMap}" targetProject="src/main/resources"/>
+        <!-- 对应的Mapper接口类文件 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${generator.targetPackageMapper}"
+                             targetProject="src/main/java"/>
+
+        <!-- 生成表开始 -->
+        <!--<table tableName="report" domainObjectName="Report" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" enableSelectByPrimaryKey="false" enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="Id" sqlStatement="JDBC" identity="true"/>
+        </table>-->
+        <!-- 生成表结束 -->
+    </context>
+</generatorConfiguration>

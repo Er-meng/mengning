@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 保存目录 -->
+    <property name="log_dir" value="/home/ermeng/workspace/me/work/logs/ms-base-log"/>
+    <!-- 保存最大天数 -->
+    <property name="maxHistory" value="30"/>
+    <!-- 日志输出级别 -->
+    <property name="logLevel" value="INFO"/>
+    <!-- 日志输出格式 -->
+    <property name="patternFormat" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger -%msg%n"/>
+
+    <!-- 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${patternFormat}</pattern>
+        </encoder>
+    </appender>
+    <!-- 基本cms日志 -->
+    <appender name="STDCMS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}-cms.log</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${patternFormat}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- root配置 -->
+    <root level="${logLevel}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="STDCMS"/>
+    </root>
+    <!-- 是否显示SQL -->
+    <logger name="cn.mn.mn.dao" level="DEBUG"/>
+</configuration>

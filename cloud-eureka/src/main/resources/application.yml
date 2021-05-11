@@ -1,0 +1,13 @@
+server:
+  port: 8081  #配置服务端口
+
+spring:
+  application:
+    name: cms-cloud-eureka  #服务名称 - 服务之间使用名称进行通讯
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8081/eureka #填写注册中心服务器地址
+    register-with-eureka: false  #是否需要将自己注册到注册中心
+    fetch-registry: false  #是否需要搜索服务信息
